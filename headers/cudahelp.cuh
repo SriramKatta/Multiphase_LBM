@@ -11,6 +11,9 @@
     int iy = blockIdx.y * blockDim.y + threadIdx.y; \
     int stridey = gridDim.y * blockDim.y;
 
+
+#define TO1D(j, i, nx, ny) ((j) * (nx) + (i))
+
 std::tuple<int, int> getgpuconfig(int warpMultiuple = 16, int blockMultiple = 10)
 {
     int deviceId;
