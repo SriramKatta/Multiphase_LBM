@@ -3,7 +3,7 @@ from spinodal_decomp import spindecomp
 from contact_angle import contactangle
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
-from cangle_graph import cangle_plot
+from cangle_graph import cangleplotter
 
 nx = 128
 ny = 128
@@ -55,7 +55,7 @@ def contangle():
     rho[bubble] = 1.9
     rho = gaussian_filter(rho,sigma = 2)
     (rho, u) = contactangle(nx, ny, nsteps, tau, rho , rho_wall, g, True,100)
-    cangle_plot(nsteps)
+    cangleplotter(nsteps)
 
 
 

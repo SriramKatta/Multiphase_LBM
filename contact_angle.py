@@ -19,6 +19,9 @@ def contactangle(nx, ny, nsteps, tau, rho, rho_wall, g, post, outfreq, experimen
     if(post):
         Path("./contactangle").mkdir(parents=True, exist_ok=True)
         fig, ax = plt.subplots(figsize=(10,10))
+        if (experiment):
+            Path("./nparrref").mkdir(parents=True, exist_ok=True)
+
 
     for t in range(nsteps + 1):
         rho = np.sum(f,2)

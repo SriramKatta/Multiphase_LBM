@@ -5,7 +5,7 @@ itercountcont = []
 cangle = []
 
 def cangle_plot(iter):
-    fname = "./nparrref/iter_"+str(i)+".npy"
+    fname = "./nparrref/iter_"+str(iter)+".npy"
     rho = np.load(fname)[:, 3:-1]
     nx, ny = rho.shape
     sliceh = rho[ nx//2 , : ][nx//2::-1]
@@ -16,7 +16,7 @@ def cangle_plot(iter):
     b_half = (nx//2) - np.interp(targenden, sliceb, np.arange(len(sliceb)))
     r = (4*(h**2) + (2*b_half)**2) / (8 * h)
     canng = np.rad2deg(np.pi - np.arcsin(b_half/r))
-    print("h : ", h, " b_half : ",b_half, " radius : ", r, " c angle : ", canng)
+    #print("h : ", h, " b_half : ",b_half, " radius : ", r, " c angle : ", canng)
     #plt.imshow(rho, cmap='gray')
     #plt.show()
     itercountcont.append(iter)
