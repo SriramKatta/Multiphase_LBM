@@ -3,6 +3,7 @@ from spinodal_decomp import spindecomp
 from contact_angle import contactangle
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
+from cangle_graph import cangle_plot
 
 nx = 128
 ny = 128
@@ -52,17 +53,13 @@ def contangle():
     rad_bubble = 30
     bubble = (X-nx/2)**2 + (Y-1)**2 <= rad_bubble**2
     rho[bubble] = 1.9
-
     rho = gaussian_filter(rho,sigma = 2)
-
-    
     (rho, u) = contactangle(nx, ny, nsteps, tau, rho , rho_wall, g, True,100)
-
-
+    cangle_plot(nsteps)
 
 
 
 if __name__ == "__main__":
-    #numvalidation()
-    #mainspin()
+    numvalidation()
+    mainspin()
     contangle()

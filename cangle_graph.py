@@ -22,13 +22,12 @@ def cangle_plot(iter):
     itercountcont.append(iter)
     cangle.append(canng)
 
-
-for i in range(0,5000+1, 100):
-    cangle_plot(i)
-
-fig, ax = plt.subplots()
-ax.plot(itercountcont, cangle)
-ax.set_xlabel("dimensionless time")
-ax.set_ylabel("contact angle(degress)")
-ax.set_title("contact anglev/s dimensionless time")
-fig.savefig("./contactangle/contact angle versus dimensionless time")
+def cangleplotter(nsteps):
+    for i in range(0,nsteps+1, 100):
+        cangle_plot(i)
+    fig, ax = plt.subplots()
+    ax.plot(itercountcont, cangle)
+    ax.set_xlabel("dimensionless time")
+    ax.set_ylabel("contact angle(degress)")
+    ax.set_title("contact anglev/s dimensionless time")
+    fig.savefig("./contactangle/contact angle versus dimensionless time")
