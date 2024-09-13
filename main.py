@@ -41,7 +41,6 @@ def numvalidation():
 
 def mainspin():
     nsteps = 4000
-    np.random.seed(3)
     rho = np.random.normal(1.0, 1e-1, nx*ny).reshape(nx,ny)
     (rho, u) = spindecomp(nx, ny, nsteps, tau, rho, g, True, 100, True)
 
