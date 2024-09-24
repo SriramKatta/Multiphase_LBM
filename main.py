@@ -14,36 +14,41 @@ rad_bubble = 10
 
 def numvalidation():
     
-    def calculatePressure(rho, g):
-        return 1/3*rho + 1/6*g*(1-np.exp(-rho))**2 
+    #def calculatePressure(rho, g):
+    #    return 1/3*rho + 1/6*g*(1-np.exp(-rho))**2 
+#
+    #nsteps = 25000
+    #bubble_rad_range = [10,15,20,25,30]
+    #p_diff = []
+    #rad_out = []
+    #for i in bubble_rad_range:
+    #    rho = np.full((nx,ny), 0.5)
+    #    X, Y = np.meshgrid(range(nx), range(ny), indexing='ij')
+    #    bubble = (X - nx/2)**2 + (Y - ny/2)**2 <= i**2
+    #    rho[bubble] = 1.5
+    #    rho = gaussian_filter(rho, sigma=2)
+    #    (rho, _) = spindecomp(nx,ny, nsteps, tau, rho, g, False, 10, False)
+    #    P = calculatePressure(rho[:, ny//2], g)
+    #    p_diff.append(P[nx//2] - P[0])
+    #    rad_out.append((nx/2) - np.interp(0.5*(np.max(rho)+np.min(rho)), rho[0:nx//2,ny//2], range(nx//2)))
 
-    nsteps = 25000
-    bubble_rad_range = [10,15,20,25,30]
-    p_diff = []
-    rad_out = []
-    for i in bubble_rad_range:
-        rho = np.full((nx,ny), 0.5)
-        X, Y = np.meshgrid(range(nx), range(ny), indexing='ij')
-        bubble = (X - nx/2)**2 + (Y - ny/2)**2 <= i**2
-        rho[bubble] = 1.5
-        rho = gaussian_filter(rho, sigma=2)
-        (rho, _) = spindecomp(nx,ny, nsteps, tau, rho, g, False, 10, False)
-        P = calculatePressure(rho[:, ny//2], g)
-        p_diff.append(P[nx//2] - P[0])
-        rad_out.append((nx/2) - np.interp(0.5*(np.max(rho)+np.min(rho)), rho[0:nx//2,ny//2], range(nx//2)))
-
-    res = stats.linregress(1/np.array(rad_out), np.array(p_diff))
+    rad_out = np.load("rad.npy")[0]
+    p_diff = np.load("pdiff.npy")[0]
+    invrad = 1/rad_out
+    res = stats.linregress(invrad, p_diff)
     print("surface tension = ", res.slope)
     print("accuracy = ", res.rvalue)
 
-    np.save("./rad.npy",np.array([rad_out]))
-    np.save("./pdiff.npy", np.array([p_diff]))
+    #np.save("./rad.npy",np.array([rad_out]))
+    #np.save("./pdiff.npy", np.array([p_diff]))
+
     plt.figure()
-    plt.plot(1/np.array(rad_out),np.array(p_diff),'o-',label='slope = '+str(res.slope))
+    plt.plot(invrad, p_diff, 'o-', label='surface tension = '+str(res.slope))
     plt.xlabel('1/radius')
-    plt.legend()
     plt.ylabel('pressure diff.')
-    plt.savefig("validation.png")
+    plt.savefig('valid.png')
+    plt.legend()
+    plt.show()
     
 
 
